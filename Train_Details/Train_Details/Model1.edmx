@@ -1,0 +1,455 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Mini_ProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Mini_Project.dbo.Admin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Admin_Password" />
+          </Key>
+          <Property Name="Admin_Id" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="Admin_Name" Type="varchar" MaxLength="25" />
+          <Property Name="Admin_Password" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Booking_status">
+          <Key>
+            <PropertyRef Name="Bid" />
+          </Key>
+          <Property Name="Bid" Type="int" Nullable="false" />
+          <Property Name="Tno" Type="int" />
+          <Property Name="class" Type="varchar" MaxLength="20" />
+          <Property Name="date_of_travel" Type="date" />
+          <Property Name="no_of_ticket" Type="int" />
+          <Property Name="Total_amount" Type="int" />
+        </EntityType>
+        <EntityType Name="Cancelled_ticket">
+          <Key>
+            <PropertyRef Name="Cid" />
+          </Key>
+          <Property Name="Cid" Type="int" Nullable="false" />
+          <Property Name="Tno" Type="int" />
+          <Property Name="date_of_travel" Type="date" />
+          <Property Name="no_of_ticket" Type="int" />
+          <Property Name="refund" Type="int" />
+          <Property Name="bid" Type="int" />
+        </EntityType>
+        <EntityType Name="Train_details">
+          <Key>
+            <PropertyRef Name="Tno" />
+          </Key>
+          <Property Name="Tno" Type="int" Nullable="false" />
+          <Property Name="Tclass" Type="varchar" MaxLength="20" />
+          <Property Name="Tname" Type="varchar" MaxLength="20" />
+          <Property Name="TSource" Type="varchar" MaxLength="50" />
+          <Property Name="TDestination" Type="varchar" MaxLength="50" />
+          <Property Name="TotalSeat" Type="int" />
+          <Property Name="AvlSeat" Type="int" />
+          <Property Name="Tstatus" Type="char" MaxLength="1" />
+          <Property Name="Fare" Type="int" />
+        </EntityType>
+        <EntityType Name="User_LogIn">
+          <Key>
+            <PropertyRef Name="User_id" />
+          </Key>
+          <Property Name="User_id" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="User_Name" Type="varchar" MaxLength="25" />
+          <Property Name="User_Age" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="User_Password" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Booking_sta__Tno__6E01572D">
+          <End Role="Train_details" Type="Self.Train_details" Multiplicity="0..1" />
+          <End Role="Booking_status" Type="Self.Booking_status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Train_details">
+              <PropertyRef Name="Tno" />
+            </Principal>
+            <Dependent Role="Booking_status">
+              <PropertyRef Name="Tno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cancelled_t__bid__71D1E811">
+          <End Role="Booking_status" Type="Self.Booking_status" Multiplicity="0..1" />
+          <End Role="Cancelled_ticket" Type="Self.Cancelled_ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking_status">
+              <PropertyRef Name="Bid" />
+            </Principal>
+            <Dependent Role="Cancelled_ticket">
+              <PropertyRef Name="bid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cancelled_t__Tno__72C60C4A">
+          <End Role="Train_details" Type="Self.Train_details" Multiplicity="0..1" />
+          <End Role="Cancelled_ticket" Type="Self.Cancelled_ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Train_details">
+              <PropertyRef Name="Tno" />
+            </Principal>
+            <Dependent Role="Cancelled_ticket">
+              <PropertyRef Name="Tno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="abc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nooftic" Type="int" Mode="In" />
+          <Parameter Name="trainno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CancelTableAvailableSeats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="trainId" Type="int" Mode="In" />
+          <Parameter Name="numberOfSeats" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insert_admin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="admin_id" Type="numeric" Mode="In" />
+          <Parameter Name="admin_name" Type="varchar" Mode="In" />
+          <Parameter Name="admin_password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="insert_booking_status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="bid" Type="int" Mode="In" />
+          <Parameter Name="tno" Type="int" Mode="In" />
+          <Parameter Name="class" Type="varchar" Mode="In" />
+          <Parameter Name="date_of_travel" Type="date" Mode="In" />
+          <Parameter Name="no_of_ticket" Type="int" Mode="In" />
+          <Parameter Name="total_amount" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insert_cancelled_ticket" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cid" Type="int" Mode="In" />
+          <Parameter Name="tno" Type="int" Mode="In" />
+          <Parameter Name="date_of_travel" Type="date" Mode="In" />
+          <Parameter Name="no_of_ticket" Type="int" Mode="In" />
+          <Parameter Name="refund" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insert_train_details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tno" Type="int" Mode="In" />
+          <Parameter Name="tclass" Type="varchar" Mode="In" />
+          <Parameter Name="tname" Type="varchar" Mode="In" />
+          <Parameter Name="tsource" Type="varchar" Mode="In" />
+          <Parameter Name="tdestination" Type="varchar" Mode="In" />
+          <Parameter Name="totalseat" Type="int" Mode="In" />
+          <Parameter Name="avlseat" Type="int" Mode="In" />
+          <Parameter Name="tstatus" Type="char" Mode="In" />
+          <Parameter Name="fare" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insert_user_login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="user_id" Type="numeric" Mode="In" />
+          <Parameter Name="user_name" Type="varchar" Mode="In" />
+          <Parameter Name="user_age" Type="numeric" Mode="In" />
+          <Parameter Name="user_password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UpdateAvailableSeats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="trainId" Type="int" Mode="In" />
+          <Parameter Name="numberOfSeats" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateAvailableSeatsOnCancellation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="canceledSeats" Type="int" Mode="In" />
+          <Parameter Name="trainId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Mini_ProjectModelStoreContainer">
+          <EntitySet Name="Booking_status" EntityType="Self.Booking_status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cancelled_ticket" EntityType="Self.Cancelled_ticket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Train_details" EntityType="Self.Train_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_LogIn" EntityType="Self.User_LogIn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin" EntityType="Self.Admin" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Admin].[Admin_Id] AS [Admin_Id], 
+    [Admin].[Admin_Name] AS [Admin_Name], 
+    [Admin].[Admin_Password] AS [Admin_Password]
+    FROM [dbo].[Admin] AS [Admin]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Booking_sta__Tno__6E01572D" Association="Self.FK__Booking_sta__Tno__6E01572D">
+            <End Role="Train_details" EntitySet="Train_details" />
+            <End Role="Booking_status" EntitySet="Booking_status" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cancelled_t__bid__71D1E811" Association="Self.FK__Cancelled_t__bid__71D1E811">
+            <End Role="Booking_status" EntitySet="Booking_status" />
+            <End Role="Cancelled_ticket" EntitySet="Cancelled_ticket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cancelled_t__Tno__72C60C4A" Association="Self.FK__Cancelled_t__Tno__72C60C4A">
+            <End Role="Train_details" EntitySet="Train_details" />
+            <End Role="Cancelled_ticket" EntitySet="Cancelled_ticket" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Mini_ProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Booking_status">
+          <Key>
+            <PropertyRef Name="Bid" />
+          </Key>
+          <Property Name="Bid" Type="Int32" Nullable="false" />
+          <Property Name="Tno" Type="Int32" />
+          <Property Name="class" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="date_of_travel" Type="DateTime" Precision="0" />
+          <Property Name="no_of_ticket" Type="Int32" />
+          <Property Name="Total_amount" Type="Int32" />
+          <NavigationProperty Name="Train_details" Relationship="Self.FK__Booking_sta__Tno__6E01572D" FromRole="Booking_status" ToRole="Train_details" />
+          <NavigationProperty Name="Cancelled_ticket" Relationship="Self.FK__Cancelled_t__bid__71D1E811" FromRole="Booking_status" ToRole="Cancelled_ticket" />
+        </EntityType>
+        <EntityType Name="Cancelled_ticket">
+          <Key>
+            <PropertyRef Name="Cid" />
+          </Key>
+          <Property Name="Cid" Type="Int32" Nullable="false" />
+          <Property Name="Tno" Type="Int32" />
+          <Property Name="date_of_travel" Type="DateTime" Precision="0" />
+          <Property Name="no_of_ticket" Type="Int32" />
+          <Property Name="refund" Type="Int32" />
+          <Property Name="bid" Type="Int32" />
+          <NavigationProperty Name="Booking_status" Relationship="Self.FK__Cancelled_t__bid__71D1E811" FromRole="Cancelled_ticket" ToRole="Booking_status" />
+          <NavigationProperty Name="Train_details" Relationship="Self.FK__Cancelled_t__Tno__72C60C4A" FromRole="Cancelled_ticket" ToRole="Train_details" />
+        </EntityType>
+        <EntityType Name="Train_details">
+          <Key>
+            <PropertyRef Name="Tno" />
+          </Key>
+          <Property Name="Tno" Type="Int32" Nullable="false" />
+          <Property Name="Tclass" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Tname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TSource" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TDestination" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalSeat" Type="Int32" />
+          <Property Name="AvlSeat" Type="Int32" />
+          <Property Name="Tstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Fare" Type="Int32" />
+          <NavigationProperty Name="Booking_status" Relationship="Self.FK__Booking_sta__Tno__6E01572D" FromRole="Train_details" ToRole="Booking_status" />
+          <NavigationProperty Name="Cancelled_ticket" Relationship="Self.FK__Cancelled_t__Tno__72C60C4A" FromRole="Train_details" ToRole="Cancelled_ticket" />
+        </EntityType>
+        <EntityType Name="User_LogIn">
+          <Key>
+            <PropertyRef Name="User_id" />
+          </Key>
+          <Property Name="User_id" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="User_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="User_Age" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="User_Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Admin_Password" />
+          </Key>
+          <Property Name="Admin_Id" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="Admin_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Admin_Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Booking_sta__Tno__6E01572D">
+          <End Role="Train_details" Type="Self.Train_details" Multiplicity="0..1" />
+          <End Role="Booking_status" Type="Self.Booking_status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Train_details">
+              <PropertyRef Name="Tno" />
+            </Principal>
+            <Dependent Role="Booking_status">
+              <PropertyRef Name="Tno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cancelled_t__bid__71D1E811">
+          <End Role="Booking_status" Type="Self.Booking_status" Multiplicity="0..1" />
+          <End Role="Cancelled_ticket" Type="Self.Cancelled_ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking_status">
+              <PropertyRef Name="Bid" />
+            </Principal>
+            <Dependent Role="Cancelled_ticket">
+              <PropertyRef Name="bid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cancelled_t__Tno__72C60C4A">
+          <End Role="Train_details" Type="Self.Train_details" Multiplicity="0..1" />
+          <End Role="Cancelled_ticket" Type="Self.Cancelled_ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Train_details">
+              <PropertyRef Name="Tno" />
+            </Principal>
+            <Dependent Role="Cancelled_ticket">
+              <PropertyRef Name="Tno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Mini_ProjectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Booking_status" EntityType="Self.Booking_status" />
+          <EntitySet Name="Cancelled_ticket" EntityType="Self.Cancelled_ticket" />
+          <EntitySet Name="Train_details" EntityType="Self.Train_details" />
+          <EntitySet Name="User_LogIn" EntityType="Self.User_LogIn" />
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <AssociationSet Name="FK__Booking_sta__Tno__6E01572D" Association="Self.FK__Booking_sta__Tno__6E01572D">
+            <End Role="Train_details" EntitySet="Train_details" />
+            <End Role="Booking_status" EntitySet="Booking_status" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cancelled_t__bid__71D1E811" Association="Self.FK__Cancelled_t__bid__71D1E811">
+            <End Role="Booking_status" EntitySet="Booking_status" />
+            <End Role="Cancelled_ticket" EntitySet="Cancelled_ticket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cancelled_t__Tno__72C60C4A" Association="Self.FK__Cancelled_t__Tno__72C60C4A">
+            <End Role="Train_details" EntitySet="Train_details" />
+            <End Role="Cancelled_ticket" EntitySet="Cancelled_ticket" />
+          </AssociationSet>
+          <FunctionImport Name="insert_admin">
+            <Parameter Name="admin_id" Mode="In" Type="Decimal" />
+            <Parameter Name="admin_name" Mode="In" Type="String" />
+            <Parameter Name="admin_password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insert_booking_status">
+            <Parameter Name="bid" Mode="In" Type="Int32" />
+            <Parameter Name="tno" Mode="In" Type="Int32" />
+            <Parameter Name="class" Mode="In" Type="String" />
+            <Parameter Name="date_of_travel" Mode="In" Type="DateTime" />
+            <Parameter Name="no_of_ticket" Mode="In" Type="Int32" />
+            <Parameter Name="total_amount" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insert_cancelled_ticket">
+            <Parameter Name="cid" Mode="In" Type="Int32" />
+            <Parameter Name="tno" Mode="In" Type="Int32" />
+            <Parameter Name="date_of_travel" Mode="In" Type="DateTime" />
+            <Parameter Name="no_of_ticket" Mode="In" Type="Int32" />
+            <Parameter Name="refund" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insert_train_details">
+            <Parameter Name="tno" Mode="In" Type="Int32" />
+            <Parameter Name="tclass" Mode="In" Type="String" />
+            <Parameter Name="tname" Mode="In" Type="String" />
+            <Parameter Name="tsource" Mode="In" Type="String" />
+            <Parameter Name="tdestination" Mode="In" Type="String" />
+            <Parameter Name="totalseat" Mode="In" Type="Int32" />
+            <Parameter Name="avlseat" Mode="In" Type="Int32" />
+            <Parameter Name="tstatus" Mode="In" Type="String" />
+            <Parameter Name="fare" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insert_user_login">
+            <Parameter Name="user_id" Mode="In" Type="Decimal" />
+            <Parameter Name="user_name" Mode="In" Type="String" />
+            <Parameter Name="user_age" Mode="In" Type="Decimal" />
+            <Parameter Name="user_password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="modify_train_details">
+            <Parameter Name="tno" Mode="In" Type="Int32" />
+            <Parameter Name="tclass" Mode="In" Type="String" />
+            <Parameter Name="tname" Mode="In" Type="String" />
+            <Parameter Name="tsource" Mode="In" Type="String" />
+            <Parameter Name="tdestination" Mode="In" Type="String" />
+            <Parameter Name="totalseat" Mode="In" Type="Int32" />
+            <Parameter Name="avlseat" Mode="In" Type="Int32" />
+            <Parameter Name="tstatus" Mode="In" Type="String" />
+            <Parameter Name="fare" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="abc">
+            <Parameter Name="nooftic" Mode="In" Type="Int32" />
+            <Parameter Name="trainno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateAvailableSeats">
+            <Parameter Name="trainId" Mode="In" Type="Int32" />
+            <Parameter Name="numberOfSeats" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CancelTableAvailableSeats">
+            <Parameter Name="trainId" Mode="In" Type="Int32" />
+            <Parameter Name="numberOfSeats" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateAvailableSeatsOnCancellation">
+            <Parameter Name="canceledSeats" Mode="In" Type="Int32" />
+            <Parameter Name="trainId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Mini_ProjectModelStoreContainer" CdmEntityContainer="Mini_ProjectEntities">
+          <EntitySetMapping Name="Booking_status">
+            <EntityTypeMapping TypeName="Mini_ProjectModel.Booking_status">
+              <MappingFragment StoreEntitySet="Booking_status">
+                <ScalarProperty Name="Bid" ColumnName="Bid" />
+                <ScalarProperty Name="Tno" ColumnName="Tno" />
+                <ScalarProperty Name="class" ColumnName="class" />
+                <ScalarProperty Name="date_of_travel" ColumnName="date_of_travel" />
+                <ScalarProperty Name="no_of_ticket" ColumnName="no_of_ticket" />
+                <ScalarProperty Name="Total_amount" ColumnName="Total_amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cancelled_ticket">
+            <EntityTypeMapping TypeName="Mini_ProjectModel.Cancelled_ticket">
+              <MappingFragment StoreEntitySet="Cancelled_ticket">
+                <ScalarProperty Name="Cid" ColumnName="Cid" />
+                <ScalarProperty Name="Tno" ColumnName="Tno" />
+                <ScalarProperty Name="date_of_travel" ColumnName="date_of_travel" />
+                <ScalarProperty Name="no_of_ticket" ColumnName="no_of_ticket" />
+                <ScalarProperty Name="refund" ColumnName="refund" />
+                <ScalarProperty Name="bid" ColumnName="bid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Train_details">
+            <EntityTypeMapping TypeName="Mini_ProjectModel.Train_details">
+              <MappingFragment StoreEntitySet="Train_details">
+                <ScalarProperty Name="Tno" ColumnName="Tno" />
+                <ScalarProperty Name="Tclass" ColumnName="Tclass" />
+                <ScalarProperty Name="Tname" ColumnName="Tname" />
+                <ScalarProperty Name="TSource" ColumnName="TSource" />
+                <ScalarProperty Name="TDestination" ColumnName="TDestination" />
+                <ScalarProperty Name="TotalSeat" ColumnName="TotalSeat" />
+                <ScalarProperty Name="AvlSeat" ColumnName="AvlSeat" />
+                <ScalarProperty Name="Tstatus" ColumnName="Tstatus" />
+                <ScalarProperty Name="Fare" ColumnName="Fare" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_LogIn">
+            <EntityTypeMapping TypeName="Mini_ProjectModel.User_LogIn">
+              <MappingFragment StoreEntitySet="User_LogIn">
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="User_Name" ColumnName="User_Name" />
+                <ScalarProperty Name="User_Age" ColumnName="User_Age" />
+                <ScalarProperty Name="User_Password" ColumnName="User_Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="Mini_ProjectModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="Admin_Id" ColumnName="Admin_Id" />
+                <ScalarProperty Name="Admin_Name" ColumnName="Admin_Name" />
+                <ScalarProperty Name="Admin_Password" ColumnName="Admin_Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="insert_admin" FunctionName="Mini_ProjectModel.Store.insert_admin" />
+          <FunctionImportMapping FunctionImportName="insert_booking_status" FunctionName="Mini_ProjectModel.Store.insert_booking_status" />
+          <FunctionImportMapping FunctionImportName="insert_cancelled_ticket" FunctionName="Mini_ProjectModel.Store.insert_cancelled_ticket" />
+          <FunctionImportMapping FunctionImportName="insert_train_details" FunctionName="Mini_ProjectModel.Store.insert_train_details" />
+          <FunctionImportMapping FunctionImportName="insert_user_login" FunctionName="Mini_ProjectModel.Store.insert_user_login" />
+          <FunctionImportMapping FunctionImportName="abc" FunctionName="Mini_ProjectModel.Store.abc" />
+          <FunctionImportMapping FunctionImportName="UpdateAvailableSeats" FunctionName="Mini_ProjectModel.Store.UpdateAvailableSeats" />
+          <FunctionImportMapping FunctionImportName="CancelTableAvailableSeats" FunctionName="Mini_ProjectModel.Store.CancelTableAvailableSeats" />
+          <FunctionImportMapping FunctionImportName="UpdateAvailableSeatsOnCancellation" FunctionName="Mini_ProjectModel.Store.UpdateAvailableSeatsOnCancellation" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Mini_ProjectModelStoreContainer" CdmEntityContainer="Mini_ProjectEntities">
+    <EntitySetMapping Name="Booking_status">
+      <EntityTypeMapping TypeName="Mini_ProjectModel.Booking_status">
+        <MappingFragment StoreEntitySet="Booking_status">
+          <ScalarProperty Name="Bid" ColumnName="Bid" />
+          <ScalarProperty Name="Tno" ColumnName="Tno" />
+          <ScalarProperty Name="class" ColumnName="class" />
+          <ScalarProperty Name="date_of_travel" ColumnName="date_of_travel" />
+          <ScalarProperty Name="no_of_ticket" ColumnName="no_of_ticket" />
+          <ScalarProperty Name="Total_amount" ColumnName="Total_amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cancelled_ticket">
+      <EntityTypeMapping TypeName="Mini_ProjectModel.Cancelled_ticket">
+        <MappingFragment StoreEntitySet="Cancelled_ticket">
+          <ScalarProperty Name="Cid" ColumnName="Cid" />
+          <ScalarProperty Name="Tno" ColumnName="Tno" />
+          <ScalarProperty Name="date_of_travel" ColumnName="date_of_travel" />
+          <ScalarProperty Name="no_of_ticket" ColumnName="no_of_ticket" />
+          <ScalarProperty Name="refund" ColumnName="refund" />
+          <ScalarProperty Name="bid" ColumnName="bid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Train_details">
+      <EntityTypeMapping TypeName="Mini_ProjectModel.Train_details">
+        <MappingFragment StoreEntitySet="Train_details">
+          <ScalarProperty Name="Tno" ColumnName="Tno" />
+          <ScalarProperty Name="Tclass" ColumnName="Tclass" />
+          <ScalarProperty Name="Tname" ColumnName="Tname" />
+          <ScalarProperty Name="TSource" ColumnName="TSource" />
+          <ScalarProperty Name="TDestination" ColumnName="TDestination" />
+          <ScalarProperty Name="TotalSeat" ColumnName="TotalSeat" />
+          <ScalarProperty Name="AvlSeat" ColumnName="AvlSeat" />
+          <ScalarProperty Name="Tstatus" ColumnName="Tstatus" />
+          <ScalarProperty Name="Fare" ColumnName="Fare" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User_LogIn">
+      <EntityTypeMapping TypeName="Mini_ProjectModel.User_LogIn">
+        <MappingFragment StoreEntitySet="User_LogIn">
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="User_Name" ColumnName="User_Name" />
+          <ScalarProperty Name="User_Age" ColumnName="User_Age" />
+          <ScalarProperty Name="User_Password" ColumnName="User_Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="Mini_ProjectModel.Admin">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="Admin_Id" ColumnName="Admin_Id" />
+          <ScalarProperty Name="Admin_Name" ColumnName="Admin_Name" />
+          <ScalarProperty Name="Admin_Password" ColumnName="Admin_Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="insert_admin" FunctionName="Mini_ProjectModel.Store.insert_admin" />
+    <FunctionImportMapping FunctionImportName="insert_booking_status" FunctionName="Mini_ProjectModel.Store.insert_booking_status" />
+    <FunctionImportMapping FunctionImportName="insert_cancelled_ticket" FunctionName="Mini_ProjectModel.Store.insert_cancelled_ticket" />
+    <FunctionImportMapping FunctionImportName="insert_train_details" FunctionName="Mini_ProjectModel.Store.insert_train_details" />
+    <FunctionImportMapping FunctionImportName="insert_user_login" FunctionName="Mini_ProjectModel.Store.insert_user_login" />
+    <FunctionImportMapping FunctionImportName="abc" FunctionName="Mini_ProjectModel.Store.abc" />
+    <FunctionImportMapping FunctionImportName="UpdateAvailableSeats" FunctionName="Mini_ProjectModel.Store.UpdateAvailableSeats" />
+    <FunctionImportMapping FunctionImportName="CancelTableAvailableSeats" FunctionName="Mini_ProjectModel.Store.CancelTableAvailableSeats" />
+    <FunctionImportMapping FunctionImportName="UpdateAvailableSeatsOnCancellation" FunctionName="Mini_ProjectModel.Store.UpdateAvailableSeatsOnCancellation" />
+  </EntityContainerMapping>
+</Mapping>
