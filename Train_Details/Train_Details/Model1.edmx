@@ -15,6 +15,16 @@ warning 6002: The table/view 'Mini_Project.dbo.Admin' does not have a primary ke
           <Property Name="Admin_Name" Type="varchar" MaxLength="25" />
           <Property Name="Admin_Password" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Mini_Project.dbo.ADMIN_LOGIN' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ADMIN_LOGIN">
+          <Key>
+            <PropertyRef Name="Admin_Password" />
+          </Key>
+          <Property Name="Admin_Id" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="Admin_Name" Type="varchar" MaxLength="25" />
+          <Property Name="Admin_Password" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="Booking_status">
           <Key>
             <PropertyRef Name="Bid" />
@@ -160,6 +170,13 @@ warning 6002: The table/view 'Mini_Project.dbo.Admin' does not have a primary ke
     [Admin].[Admin_Name] AS [Admin_Name], 
     [Admin].[Admin_Password] AS [Admin_Password]
     FROM [dbo].[Admin] AS [Admin]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ADMIN_LOGIN" EntityType="Self.ADMIN_LOGIN" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ADMIN_LOGIN].[Admin_Id] AS [Admin_Id], 
+    [ADMIN_LOGIN].[Admin_Name] AS [Admin_Name], 
+    [ADMIN_LOGIN].[Admin_Password] AS [Admin_Password]
+    FROM [dbo].[ADMIN_LOGIN] AS [ADMIN_LOGIN]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__Booking_sta__Tno__6E01572D" Association="Self.FK__Booking_sta__Tno__6E01572D">
             <End Role="Train_details" EntitySet="Train_details" />
@@ -355,7 +372,16 @@ warning 6002: The table/view 'Mini_Project.dbo.Admin' does not have a primary ke
             <Parameter Name="canceledSeats" Mode="In" Type="Int32" />
             <Parameter Name="trainId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="ADMIN_LOGIN" EntityType="Mini_ProjectModel.ADMIN_LOGIN" />
         </EntityContainer>
+        <EntityType Name="ADMIN_LOGIN">
+          <Key>
+            <PropertyRef Name="Admin_Password" />
+          </Key>
+          <Property Name="Admin_Id" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="Admin_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Admin_Password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -429,6 +455,15 @@ warning 6002: The table/view 'Mini_Project.dbo.Admin' does not have a primary ke
           <FunctionImportMapping FunctionImportName="UpdateAvailableSeats" FunctionName="Mini_ProjectModel.Store.UpdateAvailableSeats" />
           <FunctionImportMapping FunctionImportName="CancelTableAvailableSeats" FunctionName="Mini_ProjectModel.Store.CancelTableAvailableSeats" />
           <FunctionImportMapping FunctionImportName="UpdateAvailableSeatsOnCancellation" FunctionName="Mini_ProjectModel.Store.UpdateAvailableSeatsOnCancellation" />
+          <EntitySetMapping Name="ADMIN_LOGIN">
+            <EntityTypeMapping TypeName="Mini_ProjectModel.ADMIN_LOGIN">
+              <MappingFragment StoreEntitySet="ADMIN_LOGIN">
+                <ScalarProperty Name="Admin_Password" ColumnName="Admin_Password" />
+                <ScalarProperty Name="Admin_Name" ColumnName="Admin_Name" />
+                <ScalarProperty Name="Admin_Id" ColumnName="Admin_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

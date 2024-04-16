@@ -55,6 +55,9 @@
     <Compile Include="Admin.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ADMIN_LOGIN.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Booking_status.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

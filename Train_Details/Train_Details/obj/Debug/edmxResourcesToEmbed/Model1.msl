@@ -68,5 +68,14 @@
     <FunctionImportMapping FunctionImportName="UpdateAvailableSeats" FunctionName="Mini_ProjectModel.Store.UpdateAvailableSeats" />
     <FunctionImportMapping FunctionImportName="CancelTableAvailableSeats" FunctionName="Mini_ProjectModel.Store.CancelTableAvailableSeats" />
     <FunctionImportMapping FunctionImportName="UpdateAvailableSeatsOnCancellation" FunctionName="Mini_ProjectModel.Store.UpdateAvailableSeatsOnCancellation" />
+    <EntitySetMapping Name="ADMIN_LOGIN">
+      <EntityTypeMapping TypeName="Mini_ProjectModel.ADMIN_LOGIN">
+        <MappingFragment StoreEntitySet="ADMIN_LOGIN">
+          <ScalarProperty Name="Admin_Password" ColumnName="Admin_Password" />
+          <ScalarProperty Name="Admin_Name" ColumnName="Admin_Name" />
+          <ScalarProperty Name="Admin_Id" ColumnName="Admin_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -32,6 +32,7 @@ namespace Train_Details
         public virtual DbSet<Train_details> Train_details { get; set; }
         public virtual DbSet<User_LogIn> User_LogIn { get; set; }
         public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<ADMIN_LOGIN> ADMIN_LOGIN { get; set; }
     
         public virtual int insert_admin(Nullable<decimal> admin_id, string admin_name, string admin_password)
         {

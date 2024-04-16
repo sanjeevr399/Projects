@@ -13,6 +13,7 @@
         <AssociationConnector Association="Mini_ProjectModel.FK__Booking_sta__Tno__6E01572D" ManuallyRouted="false" />
         <AssociationConnector Association="Mini_ProjectModel.FK__Cancelled_t__bid__71D1E811" ManuallyRouted="false" />
         <AssociationConnector Association="Mini_ProjectModel.FK__Cancelled_t__Tno__72C60C4A" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Mini_ProjectModel.ADMIN_LOGIN" Width="1.5" PointX="6.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

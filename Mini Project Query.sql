@@ -98,12 +98,12 @@ select*from Train_details
 ------------------------------------------------------------------------------------------------------------------
 
 --Creating Admin table.
-Create table Admin(
+Create table ADMIN_LOGIN(
 	Admin_Id numeric(10) unique, 
 	Admin_Name varchar(25),
 	Admin_Password varchar(20) not null
 	);
-
+	INSERT INTO ADMIN_LOGIN VALUES (101, 'sanjeev', 'sanjeev@123');
 --drop table Admin
 --drop PROCEDURE insert_admin
 
@@ -113,11 +113,11 @@ create procedure insert_admin
     @admin_password varchar(20)
 as
 begin
-    insert into admin (admin_id, admin_name, admin_password)
+    insert into ADMIN_LOGIN (admin_id, admin_name, admin_password)
     values (@admin_id, @admin_name, @admin_password);
 end;
  
-Select * from Admin
+Select * from ADMIN_LOGIN
 --------------------------------------------------------------------------------------------------------------------
 
 Create table User_LogIn(
