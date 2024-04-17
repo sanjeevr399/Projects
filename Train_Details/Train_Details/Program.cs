@@ -16,7 +16,6 @@ namespace Train_Details
         static Train_details tdetails = new Train_details();
         static Booking_status book = new Booking_status();
         static Cancelled_ticket cancel = new Cancelled_ticket();
-        //static Admin ad = new Admin();
         static ADMIN_LOGIN ad = new ADMIN_LOGIN();
         static User_LogIn u_login = new User_LogIn();
 
@@ -81,10 +80,6 @@ namespace Train_Details
                         Console.WriteLine("you are in admin pannel & you have access to admin functionalities");
                         AdminControl();
                         break;
-                    //case "2":
-                    //    Console.WriteLine("you are in user pannel & you have access to user functionalities");
-                    //    UserControl();
-                    //    break;
                     case "2":
                         exit();
                         break;
@@ -375,61 +370,6 @@ namespace Train_Details
             
         }
 
-        //public static void Cancel_ticket()
-        //{
-        //    Console.WriteLine("\nEnter the train number you want to cancel the tickets:");
-        //    int tr_no = int.Parse(Console.ReadLine());
-        //    var trno = db.Booking_status.FirstOrDefault(t => t.Tno == tr_no);
-
-        //    if (trno != null)
-        //    {
-        //        // Get user input to populate dynamic object
-
-        //        //Console.WriteLine("\nEnter the cancellation id:");
-        //        //cancel.Cid = int.Parse(Console.ReadLine());
-        //        Random random = new Random();
-        //        cancel.Cid = random.Next(1, 100);
-
-        //        Console.WriteLine("\nEnter Tno:");
-        //        cancel.Tno = int.Parse(Console.ReadLine());
-
-        //        //Console.WriteLine("\nEnter the Tclass:");
-        //        //cancel.@class = Console.ReadLine();
-
-
-        //        //Console.WriteLine("Please enter the date in the format (YYYY-MM-DD):");
-        //        DateTime today = DateTime.Today;
-        //        cancel.date_of_travel = today;
-
-
-        //        Console.WriteLine("\nEnter the no of tickets you want to cancel:");
-        //        cancel.no_of_ticket = int.Parse(Console.ReadLine());
-
-        //        //Proc
-        //        //db.CancelTableAvailableSeats(cancel.Tno, cancel.no_of_ticket);
-
-        //        Console.WriteLine("\nEnter The Refund Amount:");
-
-        //        cancel.refund = int.Parse(Console.ReadLine());
-
-        //        //Console.WriteLine("\nEnter the booking id:");
-        //        //cancel.bid = book.Bid;
-        //        //int book_id = book.Bid;
-        //        //cancel.bid = book_id;
-
-        //        cancel.Cid = random.Next(1, 100);
-
-        //        db.Cancelled_ticket.Add(cancel);
-        //        db.SaveChanges();
-        //        Console.WriteLine($"Seats has been successfully cancelled & your booking id is {cancel.Cid}");
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("Please Enter Valid Train Number");
-        //    }
-
-
-        //}
 
         public static void Cancel_Tikets()
         {
@@ -483,11 +423,6 @@ namespace Train_Details
 
                 //---------------------------------------------------------------------------------------------------
                 cancel.refund = book.Total_amount;
-
-                //Console.WriteLine("\nEnter the booking id:");
-                //cancel.bid = book.Bid;
-                //int book_id = book.Bid;
-                //cancel.bid = book_id;
 
                 cancel.Cid = random.Next(1, 100);
 
