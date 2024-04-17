@@ -17,8 +17,8 @@ D:\Mini Project\Train_Details\Train_Details\bin\Debug\EntityFramework.dll
 D:\Mini Project\Train_Details\Train_Details\bin\Debug\EntityFramework.SqlServer.dll
 D:\Mini Project\Train_Details\Train_Details\bin\Debug\EntityFramework.xml
 D:\Mini Project\Train_Details\Train_Details\bin\Debug\EntityFramework.SqlServer.xml
-D:\Mini Project\Train_Details\Train_Details\obj\Debug\Train_Details.csproj.AssemblyReference.cache
 D:\Mini Project\Train_Details\Train_Details\obj\Debug\Train_Details.csproj.CoreCompileInputs.cache
 D:\Mini Project\Train_Details\Train_Details\obj\Debug\Train_Details.csproj.CopyComplete
 D:\Mini Project\Train_Details\Train_Details\obj\Debug\Train_Details.exe
 D:\Mini Project\Train_Details\Train_Details\obj\Debug\Train_Details.pdb
+D:\Mini Project\Train_Details\Train_Details\obj\Debug\Train_Details.csproj.AssemblyReference.cache

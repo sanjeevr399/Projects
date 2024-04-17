@@ -37,7 +37,7 @@
     <Property Name="TDestination" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="TotalSeat" Type="Int32" />
     <Property Name="AvlSeat" Type="Int32" />
-    <Property Name="Tstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Tstatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="Fare" Type="Int32" />
     <NavigationProperty Name="Booking_status" Relationship="Self.FK__Booking_sta__Tno__6E01572D" FromRole="Train_details" ToRole="Booking_status" />
     <NavigationProperty Name="Cancelled_ticket" Relationship="Self.FK__Cancelled_t__Tno__72C60C4A" FromRole="Train_details" ToRole="Cancelled_ticket" />
@@ -178,6 +178,14 @@
       <Parameter Name="trainId" Mode="In" Type="Int32" />
     </FunctionImport>
     <EntitySet Name="ADMIN_LOGIN" EntityType="Mini_ProjectModel.ADMIN_LOGIN" />
+    <FunctionImport Name="UpdateAvailableSeatsss">
+      <Parameter Name="trainId" Mode="In" Type="Int32" />
+      <Parameter Name="numberOfSeats" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateTotalSeat">
+      <Parameter Name="trainId" Mode="In" Type="Int32" />
+      <Parameter Name="numberOfSeats" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="ADMIN_LOGIN">
     <Key>

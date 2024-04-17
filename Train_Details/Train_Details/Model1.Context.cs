@@ -259,5 +259,31 @@ namespace Train_Details
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateAvailableSeatsOnCancellation", canceledSeatsParameter, trainIdParameter);
         }
+    
+        public virtual int UpdateAvailableSeatsss(Nullable<int> trainId, Nullable<int> numberOfSeats)
+        {
+            var trainIdParameter = trainId.HasValue ?
+                new ObjectParameter("trainId", trainId) :
+                new ObjectParameter("trainId", typeof(int));
+    
+            var numberOfSeatsParameter = numberOfSeats.HasValue ?
+                new ObjectParameter("numberOfSeats", numberOfSeats) :
+                new ObjectParameter("numberOfSeats", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateAvailableSeatsss", trainIdParameter, numberOfSeatsParameter);
+        }
+    
+        public virtual int UpdateTotalSeat(Nullable<int> trainId, Nullable<int> numberOfSeats)
+        {
+            var trainIdParameter = trainId.HasValue ?
+                new ObjectParameter("trainId", trainId) :
+                new ObjectParameter("trainId", typeof(int));
+    
+            var numberOfSeatsParameter = numberOfSeats.HasValue ?
+                new ObjectParameter("numberOfSeats", numberOfSeats) :
+                new ObjectParameter("numberOfSeats", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateTotalSeat", trainIdParameter, numberOfSeatsParameter);
+        }
     }
 }

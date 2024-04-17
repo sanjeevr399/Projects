@@ -67,12 +67,12 @@ namespace Train_Details
             if (admin != null)
             {
                 Console.WriteLine("\n                              -------------- Admin login successful !!  -------------------\n");
-                Console.WriteLine("Now you can access all admin authorization ");
+                //Console.WriteLine("Now you can access all admin authorization ");
 
                 //Console.WriteLine("Hii!! Welcome to Railway Reservation System--");
                 Console.WriteLine("Press 1 for Admin");
-                Console.WriteLine("Press 2 for User");
-                Console.WriteLine("Press 3 for exit");
+                //Console.WriteLine("Press 2 for User");
+                Console.WriteLine("Press 2 for exit");
                 Console.WriteLine("Enter your choice");
                 string choice = Console.ReadLine();
                 switch (choice)
@@ -81,11 +81,11 @@ namespace Train_Details
                         Console.WriteLine("you are in admin pannel & you have access to admin functionalities");
                         AdminControl();
                         break;
+                    //case "2":
+                    //    Console.WriteLine("you are in user pannel & you have access to user functionalities");
+                    //    UserControl();
+                    //    break;
                     case "2":
-                        Console.WriteLine("you are in user pannel & you have access to user functionalities");
-                        UserControl();
-                        break;
-                    case "3":
                         exit();
                         break;
                     default:
@@ -123,11 +123,11 @@ namespace Train_Details
                 case "1":
                     Console.WriteLine("Please Add The Train");
                     AddTrains();
-                    Console.WriteLine("Trains has been successfully added");
+                    Console.WriteLine("\t         ---------------Trains has been successfully added------------------\n");
                     DisplayTrains_details();
                     break;
                 case "2":
-                    Console.WriteLine("Please modify the train\n");
+                    Console.WriteLine("\t         ---------------Please modify the train------------------------------\n");
                     modifytrains();
                     break;
                 case "3":
@@ -200,15 +200,17 @@ namespace Train_Details
         {
             Console.WriteLine("Enter Train Number:");
             int trainNo = int.Parse(Console.ReadLine());
-
+            //string tra_status = Console.ReadLine();          //----------
             // Retrieve the train details from the database
             var trainToDelete = db.Train_details.FirstOrDefault(t => t.Tno == trainNo);
+            //var trainstatus = db.Train_details.FirstOrDefault(e => e.Tstatus == tra_status);  //--------
             if (trainToDelete != null)
             {
                 // Soft delete by updating the status to "Inactive"
-                trainToDelete.Tstatus = "N";
+                trainToDelete.Tstatus = "Inactive";
                 db.SaveChanges();
-                Console.WriteLine("Train  Soft deleted successfully.");
+                Console.WriteLine("\t            -----------------Train is Inactive --->>  Soft deleted successfully.---------------\n");
+                DisplayTrains_details();
                 Console.ReadLine();
                 Environment.Exit(0);
             }
@@ -235,21 +237,24 @@ namespace Train_Details
             switch (ress)
             {
                 case "1":
-                    Console.WriteLine("\nPlease Book The Seats from the following trains\n");
+                    Console.WriteLine("\n         ---------------------Please Book The Seats from the following trains-----------------------\n");
                     DisplayTrains_details();
                     BookTrains();
                     ShowBooking();
                     break;
                 case "2":
                     //Console.WriteLine("Please cancel the tickets");
-                    Console.WriteLine("Please cancel the ticket from the below booking details");
+                    Console.WriteLine("           -------------------Please cancel the ticket from the below booking details------------------\n");
                     ShowBooking();
-                    Cancel_ticket();
+                    //Cancel_ticket();
+                    Cancel_Tikets();
+                    ShowCancellation();
                     break;
                 case "3":
                     DisplayTrains_details();
                     break;
                 case "4":
+                    Console.WriteLine("\t          ---------------------Your Booking Details are following----------------------\n");
                     ShowBooking();
                     break;
                 case "5":
@@ -268,7 +273,7 @@ namespace Train_Details
             var traindata = db.Train_details.ToList();
             foreach (var e in traindata)
             {
-                Console.WriteLine($"Train No: {e.Tno},Class: {e.Tclass},Train Name: {e.Tname}, Source: {e.TSource},Destination: {e.TDestination},Total_Seat{e.TotalSeat},Avl_Seat{e.AvlSeat},Status: {e.Tstatus},Fare: {e.Fare}");
+                Console.WriteLine($"Train No: {e.Tno},Class: {e.Tclass},Train Name: {e.Tname}, Source: {e.TSource},Destination: {e.TDestination},Total_Seat: {e.TotalSeat},Avl_Seat: {e.AvlSeat},Status: {e.Tstatus},Fare: {e.Fare}");
                 Console.WriteLine("=====================================================================================================================");
             }
         }
@@ -322,7 +327,7 @@ namespace Train_Details
                 //Console.WriteLine("\nEnter the booking id:");
                 //book.Bid = int.Parse(Console.ReadLine());
                 Random random = new Random();
-                book.Bid = random.Next(1, 200);
+                book.Bid = random.Next(1, 100);
 
                 Console.WriteLine("\nEnter the train no.");
                 book.Tno = int.Parse(Console.ReadLine());
@@ -347,9 +352,16 @@ namespace Train_Details
 
                 //-------------------------------------------------------------
 
-                Console.WriteLine("\nEnter The Total Amount:");
-                book.Total_amount = int.Parse(Console.ReadLine());
+                Console.WriteLine("\nEnter The Price of one ticket: ");
+                //book.Total_amount = int.Parse(Console.ReadLine());
 
+                //int tr_no = int.Parse(Console.ReadLine());
+                //var trno = db.Booking_status.FirstOrDefault(t => t.Tno == tr_no);
+                int oneTicketCharge = int.Parse(Console.ReadLine());
+                var tfare = db.Train_details.FirstOrDefault(e => e.Fare == oneTicketCharge);
+                book.Total_amount = oneTicketCharge * n;
+                Console.WriteLine("The Price of your booking tickets are: ");
+                Console.WriteLine(book.Total_amount);
 
                 db.Booking_status.Add(book);
                 db.SaveChanges();
@@ -363,20 +375,76 @@ namespace Train_Details
             
         }
 
-        public static void Cancel_ticket()
-        {
-            Console.WriteLine("\nEnter the train number you want to cancel the tickets:");
-            int tr_no = int.Parse(Console.ReadLine());
-            var trno = db.Booking_status.FirstOrDefault(t => t.Tno == tr_no);
+        //public static void Cancel_ticket()
+        //{
+        //    Console.WriteLine("\nEnter the train number you want to cancel the tickets:");
+        //    int tr_no = int.Parse(Console.ReadLine());
+        //    var trno = db.Booking_status.FirstOrDefault(t => t.Tno == tr_no);
 
-            if (trno != null)
+        //    if (trno != null)
+        //    {
+        //        // Get user input to populate dynamic object
+
+        //        //Console.WriteLine("\nEnter the cancellation id:");
+        //        //cancel.Cid = int.Parse(Console.ReadLine());
+        //        Random random = new Random();
+        //        cancel.Cid = random.Next(1, 100);
+
+        //        Console.WriteLine("\nEnter Tno:");
+        //        cancel.Tno = int.Parse(Console.ReadLine());
+
+        //        //Console.WriteLine("\nEnter the Tclass:");
+        //        //cancel.@class = Console.ReadLine();
+
+
+        //        //Console.WriteLine("Please enter the date in the format (YYYY-MM-DD):");
+        //        DateTime today = DateTime.Today;
+        //        cancel.date_of_travel = today;
+
+
+        //        Console.WriteLine("\nEnter the no of tickets you want to cancel:");
+        //        cancel.no_of_ticket = int.Parse(Console.ReadLine());
+
+        //        //Proc
+        //        //db.CancelTableAvailableSeats(cancel.Tno, cancel.no_of_ticket);
+
+        //        Console.WriteLine("\nEnter The Refund Amount:");
+
+        //        cancel.refund = int.Parse(Console.ReadLine());
+
+        //        //Console.WriteLine("\nEnter the booking id:");
+        //        //cancel.bid = book.Bid;
+        //        //int book_id = book.Bid;
+        //        //cancel.bid = book_id;
+
+        //        cancel.Cid = random.Next(1, 100);
+
+        //        db.Cancelled_ticket.Add(cancel);
+        //        db.SaveChanges();
+        //        Console.WriteLine($"Seats has been successfully cancelled & your booking id is {cancel.Cid}");
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Please Enter Valid Train Number");
+        //    }
+
+
+        //}
+
+        public static void Cancel_Tikets()
+        {
+            Console.WriteLine("\nEnter the booking_id to cancel the tickets:");
+            int b_id = int.Parse(Console.ReadLine());
+            var Bookid = db.Booking_status.FirstOrDefault(t => t.Bid == b_id);
+
+            if (Bookid != null)
             {
                 // Get user input to populate dynamic object
 
                 //Console.WriteLine("\nEnter the cancellation id:");
                 //cancel.Cid = int.Parse(Console.ReadLine());
                 Random random = new Random();
-                cancel.Cid = random.Next(1, 200);
+                cancel.Cid = random.Next(1, 100);
 
                 Console.WriteLine("\nEnter Tno:");
                 cancel.Tno = int.Parse(Console.ReadLine());
@@ -391,45 +459,84 @@ namespace Train_Details
 
 
                 Console.WriteLine("\nEnter the no of tickets you want to cancel:");
-                cancel.no_of_ticket = int.Parse(Console.ReadLine());
+                //cancel.no_of_ticket = int.Parse(Console.ReadLine());
+                int a = int.Parse(Console.ReadLine());
+                cancel.no_of_ticket = a;
 
                 //Proc
-                db.CancelTableAvailableSeats(cancel.Tno, cancel.no_of_ticket);
+                //db.CancelTableAvailableSeats(cancel.Tno, cancel.no_of_ticket);
 
-                Console.WriteLine("\nEnter The Refund Amount:");
-                cancel.refund = int.Parse(Console.ReadLine());
+  
+
+                //--------------------------------------------------------------------------------------------------
+                Console.WriteLine("\nEnter The Price of one ticket: ");
+                //book.Total_amount = int.Parse(Console.ReadLine());
+
+                //int tr_no = int.Parse(Console.ReadLine());
+                //var trno = db.Booking_status.FirstOrDefault(t => t.Tno == tr_no);
+                int refund_amount = int.Parse(Console.ReadLine());
+                var tfare = db.Train_details.FirstOrDefault(e => e.Fare == refund_amount);
+                book.Total_amount = refund_amount * a;
+                ////Console.WriteLine("The Price of your booking tickets are: ");
+                Console.WriteLine($"The refund amount {book.Total_amount} is credited in your Bank account soon");
+                //Console.Write(book.Total_amount);
+
+                //---------------------------------------------------------------------------------------------------
+                cancel.refund = book.Total_amount;
 
                 //Console.WriteLine("\nEnter the booking id:");
-                cancel.bid = book.Bid;
+                //cancel.bid = book.Bid;
+                //int book_id = book.Bid;
+                //cancel.bid = book_id;
 
-                //book.Bid = random.Next(1, 200);
+                cancel.Cid = random.Next(1, 100);
 
                 db.Cancelled_ticket.Add(cancel);
                 db.SaveChanges();
-                Console.WriteLine($"Seats has been successfully cancelled & your booking id is {cancel.Cid}");
+                Console.WriteLine($"Seats has been successfully cancelled & your cancellation id is {cancel.Cid}");
             }
             else
             {
-                Console.WriteLine("Please Enter Valid Train Number");
+                Console.WriteLine("Please Enter Valid Booking_id");
             }
-
-               
         }
+
         public static void ShowBooking()
         {
             var Bookingdata = db.Booking_status.ToList();
             foreach (var e in Bookingdata)
             {
                 //Console.WriteLine($"Booking_ID: {e.Bid},Train_no: {e.Tno},Class: {e.@class},Date: {e.date_of_travel},No.of_tickets: {e.no_of_ticket},Total_amount: {e.Total_amount}");
+                
                 Console.WriteLine("╔═════════════════════════════════════════╗");
                 Console.WriteLine("║             BOOKING DETAILS             ║");
                 Console.WriteLine("╠═════════════════════════════════════════╣");
-                Console.WriteLine($"║ Booking ID:        {e.Bid}             ║");
-                Console.WriteLine($"║ Train_no:          {e.Tno}             ║");
-                Console.WriteLine($"║ Class Name:        {e.@class}          ║");
+                Console.WriteLine($"║ Booking ID:        {e.Bid}                   ║");
+                Console.WriteLine($"║ Train_no:          {e.Tno}                ║");
+                Console.WriteLine($"║ Class Name:        {e.@class}                   ║");
                 Console.WriteLine($"║ Date of Travel:    {e.date_of_travel}  ║");
-                Console.WriteLine($"║ Number of Tickets: {e.no_of_ticket}    ║");
-                Console.WriteLine($"║ Total Amount:      {e.Total_amount}    ║");
+                Console.WriteLine($"║ Number of Tickets: {e.no_of_ticket}                    ║");
+                Console.WriteLine($"║ Total Amount:      {e.Total_amount}                 ║");
+                Console.WriteLine("╚═════════════════════════════════════════╝");
+            }
+        }
+
+        public static void ShowCancellation()
+        {
+            var Canceldata = db.Cancelled_ticket.ToList();
+            foreach (var e in Canceldata)
+            {
+                //Console.WriteLine($"Booking_ID: {e.Bid},Train_no: {e.Tno},Class: {e.@class},Date: {e.date_of_travel},No.of_tickets: {e.no_of_ticket},Total_amount: {e.Total_amount}");
+
+                Console.WriteLine("╔═════════════════════════════════════════╗");
+                Console.WriteLine("║             CANCELLED DETAILS             ║");
+                Console.WriteLine("╠═════════════════════════════════════════╣");
+                Console.WriteLine($"║ Booking ID:        {e.Cid}                   ║");
+                Console.WriteLine($"║ Train_no:          {e.Tno}                ║");
+                //Console.WriteLine($"║ Class Name:        {e.@class}                   ║");
+                Console.WriteLine($"║ Date of Travel:    {e.date_of_travel}  ║");
+                Console.WriteLine($"║ Number of Tickets: {e.no_of_ticket}                    ║");
+                Console.WriteLine($"║ Total Amount:      {e.refund}                 ║");
                 Console.WriteLine("╚═════════════════════════════════════════╝");
             }
         }

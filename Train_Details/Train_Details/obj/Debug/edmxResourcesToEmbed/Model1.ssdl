@@ -53,7 +53,7 @@ warning 6002: The table/view 'Mini_Project.dbo.ADMIN_LOGIN' does not have a prim
     <Property Name="TDestination" Type="varchar" MaxLength="50" />
     <Property Name="TotalSeat" Type="int" />
     <Property Name="AvlSeat" Type="int" />
-    <Property Name="Tstatus" Type="char" MaxLength="1" />
+    <Property Name="Tstatus" Type="varchar" MaxLength="20" />
     <Property Name="Fare" Type="int" />
   </EntityType>
   <EntityType Name="User_LogIn">
@@ -65,7 +65,7 @@ warning 6002: The table/view 'Mini_Project.dbo.ADMIN_LOGIN' does not have a prim
     <Property Name="User_Age" Type="numeric" Precision="2" Scale="0" />
     <Property Name="User_Password" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
-  <Association Name="FK__Booking_sta__Tno__6E01572D">
+  <Association Name="FK__Booking_sta__Tno__3587F3E0">
     <End Role="Train_details" Type="Self.Train_details" Multiplicity="0..1" />
     <End Role="Booking_status" Type="Self.Booking_status" Multiplicity="*" />
     <ReferentialConstraint>
@@ -77,7 +77,7 @@ warning 6002: The table/view 'Mini_Project.dbo.ADMIN_LOGIN' does not have a prim
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Cancelled_t__bid__71D1E811">
+  <Association Name="FK__Cancelled_t__bid__3864608B">
     <End Role="Booking_status" Type="Self.Booking_status" Multiplicity="0..1" />
     <End Role="Cancelled_ticket" Type="Self.Cancelled_ticket" Multiplicity="*" />
     <ReferentialConstraint>
@@ -89,7 +89,7 @@ warning 6002: The table/view 'Mini_Project.dbo.ADMIN_LOGIN' does not have a prim
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Cancelled_t__Tno__72C60C4A">
+  <Association Name="FK__Cancelled_t__Tno__395884C4">
     <End Role="Train_details" Type="Self.Train_details" Multiplicity="0..1" />
     <End Role="Cancelled_ticket" Type="Self.Cancelled_ticket" Multiplicity="*" />
     <ReferentialConstraint>
@@ -154,6 +154,14 @@ warning 6002: The table/view 'Mini_Project.dbo.ADMIN_LOGIN' does not have a prim
     <Parameter Name="canceledSeats" Type="int" Mode="In" />
     <Parameter Name="trainId" Type="int" Mode="In" />
   </Function>
+  <Function Name="UpdateAvailableSeatsss" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="trainId" Type="int" Mode="In" />
+    <Parameter Name="numberOfSeats" Type="int" Mode="In" />
+  </Function>
+  <Function Name="UpdateTotalSeat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="trainId" Type="int" Mode="In" />
+    <Parameter Name="numberOfSeats" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="Mini_ProjectModelStoreContainer">
     <EntitySet Name="Booking_status" EntityType="Self.Booking_status" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Cancelled_ticket" EntityType="Self.Cancelled_ticket" Schema="dbo" store:Type="Tables" />
@@ -173,15 +181,15 @@ warning 6002: The table/view 'Mini_Project.dbo.ADMIN_LOGIN' does not have a prim
     [ADMIN_LOGIN].[Admin_Password] AS [Admin_Password]
     FROM [dbo].[ADMIN_LOGIN] AS [ADMIN_LOGIN]</DefiningQuery>
     </EntitySet>
-    <AssociationSet Name="FK__Booking_sta__Tno__6E01572D" Association="Self.FK__Booking_sta__Tno__6E01572D">
+    <AssociationSet Name="FK__Booking_sta__Tno__3587F3E0" Association="Self.FK__Booking_sta__Tno__3587F3E0">
       <End Role="Train_details" EntitySet="Train_details" />
       <End Role="Booking_status" EntitySet="Booking_status" />
     </AssociationSet>
-    <AssociationSet Name="FK__Cancelled_t__bid__71D1E811" Association="Self.FK__Cancelled_t__bid__71D1E811">
+    <AssociationSet Name="FK__Cancelled_t__bid__3864608B" Association="Self.FK__Cancelled_t__bid__3864608B">
       <End Role="Booking_status" EntitySet="Booking_status" />
       <End Role="Cancelled_ticket" EntitySet="Cancelled_ticket" />
     </AssociationSet>
-    <AssociationSet Name="FK__Cancelled_t__Tno__72C60C4A" Association="Self.FK__Cancelled_t__Tno__72C60C4A">
+    <AssociationSet Name="FK__Cancelled_t__Tno__395884C4" Association="Self.FK__Cancelled_t__Tno__395884C4">
       <End Role="Train_details" EntitySet="Train_details" />
       <End Role="Cancelled_ticket" EntitySet="Cancelled_ticket" />
     </AssociationSet>

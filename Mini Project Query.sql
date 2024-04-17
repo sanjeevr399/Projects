@@ -9,10 +9,11 @@ create table Train_details(
 	TDestination varchar(50),
 	TotalSeat int,
 	AvlSeat int,
-	Tstatus char(1),
+	Tstatus varchar(20),
 	Fare int
 );
---drop table Train_details
+--insert into Train_details values (19037,'1A','Awadh Exp','Lucknow','Chennai',100,100,'Active',800);
+drop table Train_details
 --DROP PROCEDURE insert_train_details
 
 create procedure insert_train_details
@@ -46,7 +47,7 @@ create table Booking_status(
 
 );
 
---drop table Booking_status
+drop table Booking_status
 --DROP PROCEDURE insert_booking_status
 
 create procedure insert_booking_status
@@ -77,7 +78,7 @@ create table Cancelled_ticket(
 	FOREIGN KEY(tno) REFERENCES Train_details(tno),
 );
 
---drop table Cancelled_ticket
+drop table Cancelled_ticket
 --DROP PROCEDURE insert_cancelled_ticket
 
 create procedure insert_cancelled_ticket
@@ -166,6 +167,7 @@ BEGIN
 END;
 --------------------------------------------------------------------------------------------------
 CREATE or alter PROCEDURE CancelTableAvailableSeats (
+	--@cid int,
     @trainId INT,
     @numberOfSeats INT
 )
@@ -185,11 +187,15 @@ BEGIN
 		--values (@trainId,@numberOfSeats);
     
 END;
-exec CancelTableAvailableSeats   @trainId=19037 ,
+exec CancelTableAvailableSeats @trainId=12531 ,
     @numberOfSeats=5
+
+----------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------
 
 
 select*from Train_details
 select*from Cancelled_ticket
 select*from Booking_status
-drop  UpdateAvailableSeats
+--drop  UpdateAvailableSeats
