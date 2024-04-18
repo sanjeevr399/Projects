@@ -38,22 +38,24 @@ namespace Train_Details
             Console.WriteLine("Press 2 for  login as User");
             Console.WriteLine("Enter your Choice");
             string Choice = Console.ReadLine();
-            switch (Choice)
-            {
-                case "1":
-                    Console.WriteLine("             ----------------First Login to get the Access of Admin Panel----------------------");
-                    Admin_control();
-                    break;
-                case "2":
-                    Console.WriteLine("                       ----------------you are in user panel-----------------------");
-                    UserControl();
-                    break;
-                default:
-                    Console.WriteLine("Enter valid");
-                    break;
-            }
-            Console.Read();
+                switch (Choice)
+                {
+                    case "1":
+                        Console.WriteLine("             ----------------First Login to get the Access of Admin Panel----------------------");
+                        Admin_control();
+                        break;
+                    case "2":
+                        Console.WriteLine("                       ----------------You are in user panel-----------------------");
+                        UserControl();
+                        break;
+                    default:
+                        Console.WriteLine("Enter valid");
+                        break;
+                }
+                Console.Read();
+            
         }
+           
 
         static void Admin_control()
         {
@@ -62,84 +64,141 @@ namespace Train_Details
             Console.WriteLine("Enter Password:");
             string Password = Console.ReadLine();
             var admin = db.ADMIN_LOGIN.FirstOrDefault(a => a.Admin_Id == AdminId && a.Admin_Password == Password);
-
-            if (admin != null)
+            while(true)
             {
-                Console.WriteLine("\n                              -------------- Admin login successful !!  -------------------\n");
-                //Console.WriteLine("Now you can access all admin authorization ");
-
-                //Console.WriteLine("Hii!! Welcome to Railway Reservation System--");
-                Console.WriteLine("Press 1 for Admin");
-                //Console.WriteLine("Press 2 for User");
-                Console.WriteLine("Press 2 for exit");
-                Console.WriteLine("Enter your choice");
-                string choice = Console.ReadLine();
-                switch (choice)
+                if (admin != null)
                 {
-                    case "1":
-                        Console.WriteLine("you are in admin pannel & you have access to admin functionalities");
-                        AdminControl();
-                        break;
-                    case "2":
-                        exit();
-                        break;
-                    default:
-                        Console.WriteLine("Enter valid number");
+                    Console.WriteLine("\n                              -------------- Admin login successful !!  -------------------\n");
+                    //Console.WriteLine("Now you can access all admin authorization ");
 
-                        break;
+                    //Console.WriteLine("Hii!! Welcome to Railway Reservation System--");
 
-                        //AddTrains();
-                        //AddTrains(tdetails);
-                        //DisplayTrains_details();
-                        Console.Read();
+                    //=====================================================================================================================
+
+                    Console.WriteLine("Press 1 for Admin");
+                    //Console.WriteLine("Press 2 for User");
+                    Console.WriteLine("Press 2 for exit");
+                    Console.WriteLine("Enter your choice");
+                    string choice = Console.ReadLine();
+                    switch (choice)
+                    {
+                        case "1":
+                            Console.WriteLine("you are in admin pannel & you have access to admin functionalities");
+                            AdminControl();
+                            break;
+                        case "2":
+                            exit();
+                            break;
+                        default:
+                            Console.WriteLine("Enter valid number");
+
+                            break;
+
+                            //AddTrains();
+                            //AddTrains(tdetails);
+                            //DisplayTrains_details();
+                            Console.Read();
+                    }
+
                 }
+                else
+                {
+                    Console.WriteLine("Invalid Admin_id or Password ! Please try again.");
+                    Console.ReadLine();
+                    Environment.Exit(0);
+                }
+                //------------------------------------------------------------------------------------------------------------
 
             }
-            else
-            {
-                Console.WriteLine("Invalid Admin_id or Password ! Please try again.");
-                Console.ReadLine();
-                Environment.Exit(0);
-            }
-            //------------------------------------------------------------------------------------------------------------
-
         }
+            
 
         public static void AdminControl()
         {
             //--------------------------------------------------------------------------------------------
-            Console.WriteLine("Press 1 for Add Trains");
-            Console.WriteLine("Press 2 for Modify Trains");
-            Console.WriteLine("Press 3 for Soft Delete Trains");
-            Console.WriteLine("Press 4 for Exit");
-            string res = Console.ReadLine();
-            switch (res)
+
+            //bool exit = false;
+
+            while (true)
             {
-                case "1":
-                    Console.WriteLine("Please Add The Train");
-                    AddTrains();
-                    Console.WriteLine("\t         ---------------Trains has been successfully added------------------\n");
-                    DisplayTrains_details();
-                    break;
-                case "2":
-                    Console.WriteLine("\t         ---------------Please modify the train------------------------------\n");
-                    modifytrains();
-                    break;
-                case "3":
-                    Console.WriteLine("\t         -----------------Soft Delete the unwanted train--------------------\n");
-                    DisplayTrains_details();
-                    Soft_DeleteTrain();
-                    DisplayTrains_details();
-                    break;
-                default:
-                    Console.WriteLine("Enter valid number");
+                Console.WriteLine("Press 1 for Add Trains");
+                Console.WriteLine("Press 2 for Modify Trains");
+                Console.WriteLine("Press 3 for Soft Delete Trains");
+                Console.WriteLine("Press 4 for Exit");
+                string res = Console.ReadLine();
+                switch (res)
+                {
+                    case "1":
+                        Console.WriteLine("Please Add The Train");
+                        AddTrains();
+                        Console.WriteLine("\t         ---------------Trains has been successfully added------------------\n");
+                        DisplayTrains_details();
+                        break;
+                    case "2":
+                        Console.WriteLine("\t         ---------------Please modify the train------------------------------\n");
+                        modifytrains();
+                        break;
+                    case "3":
+                        Console.WriteLine("\t         -----------------Soft Delete the unwanted train--------------------\n");
+                        DisplayTrains_details();
+                        Soft_DeleteTrain();
+                        DisplayTrains_details();
+                        break;
+                    default:
+                        Console.WriteLine("Enter valid number");
+                        break;
+                }
 
-                    break;
+                //-----------------------------------------------------------------------------------------
             }
+                Console.Read();
 
-            //-----------------------------------------------------------------------------------------
-            Console.Read();
+
         }
+
+
+        //public static void AdminControl()
+        //{
+        //    //--------------------------------------------------------------------------------------------
+
+        //    bool exit = false;
+
+        //    while (!exit)
+        //    {
+        //        Console.WriteLine("Press 1 for Add Trains");
+        //        Console.WriteLine("Press 2 for Modify Trains");
+        //        Console.WriteLine("Press 3 for Soft Delete Trains");
+        //        Console.WriteLine("Press 4 for Exit");
+        //        string res = Console.ReadLine();
+        //        if (res == "1")
+        //        {
+
+        //            Console.WriteLine("Please Add The Train");
+        //            AddTrains();
+        //            Console.WriteLine("\t         ---------------Trains has been successfully added------------------\n");
+        //            DisplayTrains_details();
+        //        }
+        //        else if(res == "2")
+        //        {
+        //            Console.WriteLine("\t         ---------------Please modify the train------------------------------\n");
+        //            modifytrains();
+        //            break;
+        //        }
+        //        else if(res == "3")
+        //        {
+        //            Console.WriteLine("\t         -----------------Soft Delete the unwanted train--------------------\n");
+        //            DisplayTrains_details();
+        //            Soft_DeleteTrain();
+        //            DisplayTrains_details();
+        //            break;
+        //        }
+
+        //        //-----------------------------------------------------------------------------------------
+        //        Console.Read();
+        //    }
+
+
+        //}
 
         public static void modifytrains()
         {
@@ -221,45 +280,49 @@ namespace Train_Details
         public static void UserControl()
         {
             //Console.WriteLine("Now you can access all user utilities ");
-            Console.WriteLine("Press 1 for Book Tickets");
-            Console.WriteLine("Press 2 for Cancel Tickest");
-            Console.WriteLine("Press 3 for Show all Trains");
-            Console.WriteLine("Press 4 for Show Booking");
-            Console.WriteLine("Press 5 for Exit");
-
-            //string ress = Console.ReadLine();
-            string ress= Console.ReadLine();
-            switch (ress)
+            while(true)
             {
-                case "1":
-                    Console.WriteLine("\n         ---------------------Please Book The Seats from the following trains-----------------------\n");
-                    DisplayTrains_details();
-                    BookTrains();
-                    ShowBooking();
-                    break;
-                case "2":
-                    //Console.WriteLine("Please cancel the tickets");
-                    Console.WriteLine("           -------------------Please cancel the ticket from the below booking details------------------\n");
-                    ShowBooking();
-                    //Cancel_ticket();
-                    Cancel_Tikets();
-                    ShowCancellation();
-                    break;
-                case "3":
-                    DisplayTrains_details();
-                    break;
-                case "4":
-                    Console.WriteLine("\t          ---------------------Your Booking Details are following----------------------\n");
-                    ShowBooking();
-                    break;
-                case "5":
-                    exit();
-                    break;
-                default:
-                    Console.WriteLine("Enter valid number");
-                    break;
+                Console.WriteLine("Press 1 for Book Tickets");
+                Console.WriteLine("Press 2 for Cancel Tickest");
+                Console.WriteLine("Press 3 for Show all Trains");
+                Console.WriteLine("Press 4 for Show Booking");
+                Console.WriteLine("Press 5 for Exit");
+
+                //string ress = Console.ReadLine();
+                string ress = Console.ReadLine();
+                switch (ress)
+                {
+                    case "1":
+                        Console.WriteLine("\n         ---------------------Please Book The Seats from the following trains-----------------------\n");
+                        DisplayTrains_details();
+                        BookTrains();
+                        ShowBooking();
+                        break;
+                    case "2":
+                        //Console.WriteLine("Please cancel the tickets");
+                        Console.WriteLine("           -------------------Please cancel the ticket from the below booking details------------------\n");
+                        ShowBooking();
+                        //Cancel_ticket();
+                        Cancel_Tikets();
+                        ShowCancellation();
+                        break;
+                    case "3":
+                        DisplayTrains_details();
+                        break;
+                    case "4":
+                        Console.WriteLine("\t          ---------------------Your Booking Details are following----------------------\n");
+                        ShowBooking();
+                        break;
+                    case "5":
+                        exit();
+                        break;
+                    default:
+                        Console.WriteLine("Enter valid number");
+                        break;
+                }
             }
                     Console.Read();
+            
 
         }
 
@@ -347,7 +410,7 @@ namespace Train_Details
 
                 //-------------------------------------------------------------
 
-                Console.WriteLine("\nEnter The Price of one ticket: ");
+                Console.WriteLine("\nEnter The basic ticket price: ");
                 //book.Total_amount = int.Parse(Console.ReadLine());
 
                 //int tr_no = int.Parse(Console.ReadLine());
@@ -409,7 +472,7 @@ namespace Train_Details
   
 
                 //--------------------------------------------------------------------------------------------------
-                Console.WriteLine("\nEnter The Price of one ticket: ");
+                Console.WriteLine("\nEnter The basic ticket price: ");
                 //book.Total_amount = int.Parse(Console.ReadLine());
 
                 //int tr_no = int.Parse(Console.ReadLine());
@@ -481,6 +544,39 @@ namespace Train_Details
             Console.WriteLine("To exit from console please write exit or press ctrl+C");
             Console.ReadLine();
         }
+
+
+        //public static string ReadPassword()
+        //{
+        //    string password = "";
+
+        //    ConsoleKeyInfo key;
+
+        //    do
+
+        //    {
+
+        //        key = Console.ReadKey(true);
+
+        //        // Ignore any key other than Enter
+
+        //        if (key.Key != ConsoleKey.Enter)
+
+        //        {
+
+        //            password += key.KeyChar;
+
+        //            Console.Write("*");
+
+        //        }
+
+        //    } while (key.Key != ConsoleKey.Enter);
+
+        //    Console.WriteLine(); // Move to the next line after the user hits Enter
+
+        //    return password;
+
+        //}
 
         //-------------------------------------------------------------------------------------------------------------
 
