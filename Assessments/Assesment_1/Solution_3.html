@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assesment_1</title>
+</head>
+<style>
+    #container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20%;
+    }
+</style>
+<body>
+    <div id="container">
+        <button id="btn">Click me</button>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        // Get the button element
+        var button = document.getElementById("btn");
+        var messageDiv = document.getElementById("message");
+
+        // Add a click event listener
+        button.addEventListener("click", function () {
+            // Print a message when the button is clicked
+            messageDiv.textContent = "You just clicked the button !!";
+        });
+    </script>
+
+
+
+</body>
+
+</html>
