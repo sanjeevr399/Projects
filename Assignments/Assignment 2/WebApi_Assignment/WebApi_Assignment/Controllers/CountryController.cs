@@ -29,7 +29,7 @@ namespace WebApi_Assignment.Controllers
 
         [HttpGet]
         [Route("ById")]
-        public IHttpActionResult PersonById(int pid)
+        public IHttpActionResult CountryById(int pid)
         {
             var person = Countrylist.Find(p => p.ID == pid);
             if (person == null)
@@ -50,7 +50,7 @@ namespace WebApi_Assignment.Controllers
 
         [HttpPost]
         [Route("countryPost")]
-        public void Personpost([FromUri] int Id, string name, string desig)
+        public void Countrypost([FromUri] int Id, string name, string desig)
         {
             Country person = new Country();
             person.ID = Id;
@@ -60,7 +60,6 @@ namespace WebApi_Assignment.Controllers
         }
 
         //Put--------------
-
         [HttpPut]
         [Route("updateCountry")]
         public void Put(int pid, [FromUri] Country p)
