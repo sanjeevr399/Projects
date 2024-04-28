@@ -29,22 +29,22 @@ namespace WebApi_Assignment.Controllers
 
         [HttpGet]
         [Route("ById")]
-        public IHttpActionResult CountryById(int pid)
+        public IHttpActionResult CountryById(int cid)
         {
-            var person = Countrylist.Find(p => p.ID == pid);
-            if (person == null)
+            var country = Countrylist.Find(p => p.ID == cid);
+            if (country == null)
             {
                 return NotFound();
             }
-            return Ok(person);
+            return Ok(country);
         }
 
         //Post---------
         [HttpPost]
         [Route("AllPost")]
-        public List<Country> PostAll([FromBody] Country person)
+        public List<Country> PostAll([FromBody] Country country)
         {
-            Countrylist.Add(person);
+            Countrylist.Add(country);
             return Countrylist;
         }
 
@@ -62,17 +62,17 @@ namespace WebApi_Assignment.Controllers
         //Put--------------
         [HttpPut]
         [Route("updateCountry")]
-        public void Put(int pid, [FromUri] Country p)
+        public void Put(int cid, [FromUri] Country c)
         {
-            Countrylist[pid - 1] = p;
+            Countrylist[cid - 1] = c;
         }
 
         //Delete--------
         [HttpDelete]
         [Route("deleteCountry")]
-        public void Delete(int pid)
+        public void Delete(int cid)
         {
-            Countrylist.RemoveAt(pid - 1);
+            Countrylist.RemoveAt(cid - 1);
         }
     }
 }
